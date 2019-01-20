@@ -64,7 +64,7 @@ def create_app(test_config=None):
             for line in f:
                 line = line.split(';')
 
-                drg = line[0]
+                drg = str(line[0]).zfill(3)
                 desc = line[1].capitalize()
 
                 result = {'drg':drg, 'desc':desc }
@@ -75,9 +75,7 @@ def create_app(test_config=None):
 
     @app.route('/keywords')
     def keywords():
-        
         keywords = request.args.get('keywords').split()
-        print(keywords)
         results_list = []
 
         if keywords:
@@ -88,7 +86,7 @@ def create_app(test_config=None):
                     contains_keywords = True
 
                     line = line.split(';')
-                    drg = line[0]
+                    drg = str(line[0]).zfill(3)
                     desc = line[1].capitalize()
 
                     for word in keywords:

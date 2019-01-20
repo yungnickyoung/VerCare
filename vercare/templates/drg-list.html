@@ -76,16 +76,19 @@
             <div class="container">
                 <div class="row justify-content-center">
                     <div class="col">
-                        <p class="h1 text-center">VerCare</p>
+                        <p class="h1 text-center">Diagnosis-Related Group</p>
                     </div>
                 </div>
                 <div class="row justify-content-center">
-                    <div class="col text-center">
-                        <p class="h3"><small class="text-muted text-center">DRC Code List</small></p>
+                    <div class="col-9 text-center">
+                        <p class="h4"><small class="text-muted">The diagnosis-related group (DRG) is 
+                            a patient classification system that describes a patient based on his/her overall diagnosis.
+                            Each DRG payment covers all charges associated with an inpatient stay from the time of admission to discharge.
+                        </small></p>
                     </div>
                 </div>
             </div>
-
+            <br />
             <div class="container">
                     <div class="row justify-content-center">
                         <div class="col-10">
@@ -93,14 +96,14 @@
                                 <thead class="thead-light">
                                     <tr>
                                         <th style="max-width: 40px;text-align: center;" scope="col">DRG Code</th>
-                                        <th scope="col">Procedure Description</th>
+                                        <th style="text-align: center; padding-right:-20px;" scope="col">Procedure Description</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     {% for item in table_info %}
                                     <tr>
                                         <th style="max-width: 40px;text-align: center;" scope="row">{{ item.drg }}</th>
-                                        <td style="word-wrap: break-word;min-width: 160px;max-width: 160px;">{{ item.desc }}</td>
+                                        <td style="word-wrap: break-word; min-width: 160px;max-width: 160px;">{{ item.desc }}</td>
                                     </tr>
                                     {% endfor %}
                                 </tbody>
