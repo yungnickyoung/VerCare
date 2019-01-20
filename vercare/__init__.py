@@ -1,4 +1,6 @@
+from __future__ import print_function
 import os
+import sys
 from flask import Flask, render_template, request, redirect
 
 def create_app(test_config=None):
@@ -35,17 +37,31 @@ def create_app(test_config=None):
     def search():
         return render_template('search.html', title='Search', drgCode='123', searchLoc='Gainesville, FL')
 
+    @app.route('/drg-list')
+    def drgList():
+        results_list = []
+        with open('static/drg_desc_final.txt') as f:
+            f.readline()
+            for line in f:
+                line = line.split(';')
+
+                drg = line[0]
+                desc = line[1].capitalize()
+
+                result = {'drg':drg, 'desc':desc }
+                results_list.append(result)
+
+        return render_template('drg-list.html', title='DRG List', table_info=results_list)
+        
+
     @app.route('/keywords')
     def keywords():
+        
         keywords = request.args.get('keywords').split()
-        # maxNumResults = 0 # Table can hold no more than 10 results
-
+        print(keywords)
         results_list = []
 
         if keywords:
-            # a_result = { 'drg' = '...', 'desc' = '...' }
-            # results_list.append(a_result)
-
             # Search table of DRG/Descriptions for descriptions containing keywords
             with open('static/drg_desc_final.txt') as f:
                 f.readline()
@@ -63,7 +79,6 @@ def create_app(test_config=None):
                     if contains_keywords:
                         result = {'drg':drg, 'desc':desc }
                         results_list.append(result)
-
         return render_template('keywords.html', table_info=results_list)
 
     from . import db
