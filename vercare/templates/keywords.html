@@ -1,17 +1,17 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-10">
-            <table class="table table-striped table-hover" id="drgTable">                
+            <table class="table table-striped table-hover table-bordered" id="drgTable">                
                 <thead class="thead-light">
                     <tr>
-                        <th scope="col">DRG Code</th>
-                        <th scope="col">Procedure Description</th>
+                        <th style="max-width: 40px;text-align: center;" scope="col">DRG Code</th>
+                        <th style="text-align: center; padding-right:-20px;" scope="col">Procedure Description</th>
                     </tr>
                 </thead>
                 <tbody>
                     {% for item in table_info %}
                     <tr>
-                        <th scope="row"><a id = "drgButton1" class="btn btn-info" role="button" href='search?drgCode={{ item.drg }}&searchLoc=Gainesville, FL'>{{ item.drg }}</a></th>
+                        <th style="max-width: 40px;text-align: center;" scope="row"><a id = "drgButton1" class="btn btn-info" role="button" href='search?drgCode={{ item.drg }}&searchLoc=Gainesville, FL'>{{ item.drg }}</a></th>
                         <td style="word-wrap: break-word;min-width: 160px;max-width: 160px;">{{ item.desc }}</td>
                     </tr>
                     {% endfor %}
