@@ -55,6 +55,7 @@ def create_app(test_config=None):
             avg_total_case = row[2]
             avg_care_case = row[3]
             hospital_id = row[4]
+            provided = 'Y'
 
             c.execute('SELECT * FROM hospital_list WHERE hospital_id=?', (hospital_id,))
             hospital_info = c.fetchone()
@@ -76,22 +77,22 @@ def create_app(test_config=None):
                 phone_number += " ext. " + str(hospital_phone_number)[10:]
 
             # Update min appd
-            if avg_total_case_f < min_price_appd:
+            if avg_total_case_f < min_price_appd and avg_total_case_f > 0:
                 min_price_appd = avg_total_case_f
                 min_price_appd_name = hospital_name
 
             # Update min medicare
-            if avg_care_case_f < min_price_care:
+            if avg_care_case_f < min_price_care and avg_care_case_f > 0:
                 min_price_care = avg_care_case_f
                 min_price_care_name = hospital_name
 
             # Update max appd
-            if avg_total_case_f > max_price_appd:
+            if avg_total_case_f > max_price_appd and avg_total_case_f > 0:
                 max_price_appd = avg_total_case_f
                 max_price_appd_name = hospital_name
 
             # Update max medicare
-            if avg_care_case_f > max_price_care:
+            if avg_care_case_f > max_price_care and avg_care_case_f > 0:
                 max_price_care = avg_care_case_f
                 max_price_care_name = hospital_name
             
@@ -107,14 +108,21 @@ def create_app(test_config=None):
             print("max_price_care_name")
             print(max_price_care_name)
 
-            #TODO: CHECK IF VALUE IS ERROR CODE LIKE -2
-
             avg_total_case = '$' + avg_total_case
             avg_care_case = '$' + avg_care_case
 
+            if avg_care_case == '$-1':
+                avg_care_case = 'N/A'
+            
+            if avg_care_case == '$-2':
+                avg_care_case = 'Procedure not provided'
+                provided = 'N'
 
+            if avg_total_case == '$-2':
+                avg_total_case = 'Procedure not provided'
+                provided = 'N'
 
-            table_row = { 'hospital':hospital_name, 'appd':avg_total_case, 'appdcare':avg_care_case, 'city':hospital_city, 'state':hospital_state, 'phone':phone_number }
+            table_row = { 'hospital':hospital_name, 'appd':avg_total_case, 'appdcare':avg_care_case, 'city':hospital_city, 'state':hospital_state, 'phone':phone_number, 'provided':provided }
             table_info.append(table_row)
 
 

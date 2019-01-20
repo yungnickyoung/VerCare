@@ -99,7 +99,7 @@
                                 {% for item in table_info %}
                                 <tr>
                                     <td style="word-wrap: break-word;min-width: 160px;max-width: 160px;">{{ item.hospital }}</td>
-                                    <th scope="row">Y</th>
+                                    <th scope="row">{{ item.provided }}</th>
                                     <td style="word-wrap: break-word;min-width: 160px;max-width: 160px;">{{ item.appd }} {% if min_appd == item.hospital %}<span class="badge badge-success">Best Price</span>{% endif %}{% if max_appd == item.hospital %}<span class="badge badge-danger">Worst Price</span>{% endif %}</td>
                                     <td style="word-wrap: break-word;min-width: 160px;max-width: 160px;">{{ item.appdcare }} {% if min_care == item.hospital %}<span class="badge badge-success">Best Price</span>{% endif %}{% if max_care == item.hospital %}<span class="badge badge-danger">Worst Price</span>{% endif %}</td>
                                     <td style="word-wrap: break-word;min-width: 160px;max-width: 160px;">{{ item.city }}, {{ item.state }}</td>
