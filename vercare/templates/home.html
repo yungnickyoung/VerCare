@@ -124,34 +124,7 @@
 
             <br />
 
-            <div class="container">
-                <div class="row justify-content-center">
-                    <div class="col-10">
-                        <table class="table table-striped table-hover" id="drgTable">
-                            <thead class="thead-light">
-                                <tr>
-                                    <th scope="col">DRG Code</th>
-                                    <th scope="col">Procedure Description</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <th scope="row">001</th>
-                                    <td style="word-wrap: break-word;min-width: 160px;max-width: 160px;">HEART PROBLEMS FOR....</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">463</th>
-                                    <td>DULL WRIST PAIN....</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">571</th>
-                                    <td>LIGHT DAMAGE TO...</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
+            <div id="keyword_table_place"></div>
 
         </main>
 
@@ -179,7 +152,7 @@
                         type: "get",
                         data: { keywords: text },
                         success: function (response) {
-                            $("#place_for_suggestions").html(response);
+                            $("#keyword_table_place").html(response);
                         },
                         error: function (xhr) {
                             //Do Something to handle error
@@ -191,7 +164,7 @@
         
 
         <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
     </body>

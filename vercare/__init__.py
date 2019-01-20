@@ -1,5 +1,5 @@
 import os
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 
 def create_app(test_config=None):
     # create and configure the app
@@ -31,13 +31,36 @@ def create_app(test_config=None):
     def search():
         return render_template('search.html', title='Search', drgCode='123', searchLoc='Gainesville, FL')
 
-    @app.route('keywords')
+    @app.route('/keywords')
     def keywords():
         keywords = request.args.get('keywords').split()
-        maxNumResults = 0 # Table can hold no more than 10 results
+        # maxNumResults = 0 # Table can hold no more than 10 results
+
+        results_list = []
 
         if keywords:
-            # Search table of DRG/Descriptions for descriptions containing 
+            # a_result = { 'drg' = '...', 'desc' = '...' }
+            # results_list.append(a_result)
+
+            # Search table of DRG/Descriptions for descriptions containing keywords
+            with open("static/drg_desc.csv") as f:
+                f.readline()
+                for line in f:
+                    contains_keywords = True
+
+                    line = line.split(',')
+                    drg = line[0]
+                    desc = line[1]
+
+                    for word in keywords:
+                        if word not in line[1]:
+                            contains_keywords = False
+
+                    if contains_keywords:
+                        result = {'drg':line[0], 'desc':line[1] }
+                        results_list.append(result)
+
+        return render_template('keywords.html', table_info=results_list)
 
     from . import db
     db.init_app(app)
