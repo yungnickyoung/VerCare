@@ -1,7 +1,7 @@
 BEGIN TRANSACTION;
 CREATE TABLE IF NOT EXISTS `hospital_list` (
 	`name`	TEXT,
-	`hospital_id`	INTEGER PRIMARY KEY AUTOINCREMENT UNIQUE,
+	`hospital_id`	INTEGER PRIMARY KEY UNIQUE,
 	`phone_number`	INTEGER,
 	`city`	TEXT,
 	`state`	TEXT
@@ -17,8 +17,8 @@ CREATE TABLE IF NOT EXISTS `drg_list` (
 	`Hosp`	TEXT,
 	`avgTotalCase`	TEXT,
 	`avgCareCase`	TEXT,
-	`hospital_ID`	INTEGER,
-	PRIMARY KEY(`DRG`,`hospital_ID`)
+	`hospital_IDd`	INTEGER,
+	PRIMARY KEY(`DRG`,`hospital_IDd`)
 );
 INSERT INTO `drg_list` VALUES ('1','ShandsGaines','277558.00','-1',1);
 INSERT INTO `drg_list` VALUES ('2','ShandsGaines','-2','-2',1);

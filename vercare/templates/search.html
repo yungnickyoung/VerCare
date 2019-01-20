@@ -96,6 +96,16 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                {% for item in table_info %}
+                                <tr>
+                                    <td style="word-wrap: break-word;min-width: 160px;max-width: 160px;">{{ item.hospital }}</td>
+                                    <th scope="row">Y</th>
+                                    <td style="word-wrap: break-word;min-width: 160px;max-width: 160px;">{{ item.appd }}</td>
+                                    <td style="word-wrap: break-word;min-width: 160px;max-width: 160px;">{{ item.appdcare }}</td>
+                                    <td style="word-wrap: break-word;min-width: 160px;max-width: 160px;">Gainesville, FL</td>
+                                    <td style="word-wrap: break-word;min-width: 160px;max-width: 160px;">(123)456-7890</td>
+                                </tr>
+                                {% endfor %}
                                 <tr class="table-danger">
                                     <td style="word-wrap: break-word;min-width: 160px;max-width: 160px;">Hospital 1<span class="badge badge-danger">Worst Price</span></td>
                                     <th scope="row">Y</th>
