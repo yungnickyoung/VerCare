@@ -41,6 +41,14 @@ def create_app(test_config=None):
         list_of_rows = c.fetchall()
 
         table_info = []
+        min_price_appd = 9999999999999
+        min_price_care = 9999999999999
+        min_price_appd_name = ''
+        min_price_care_name = ''
+        max_price_appd = -5
+        max_price_care = -5
+        max_price_appd_name = ''
+        max_price_care_name = ''
 
         for row in list_of_rows:
             hospital_name = row[1]
@@ -50,10 +58,13 @@ def create_app(test_config=None):
 
             c.execute('SELECT * FROM hospital_list WHERE hospital_id=?', (hospital_id,))
             hospital_info = c.fetchone()
-            print(hospital_info)
+
             hospital_phone_number = hospital_info[2]
             hospital_city = hospital_info[3]
             hospital_state = hospital_info[4]
+
+            avg_total_case_f = float(avg_total_case)
+            avg_care_case_f = float(avg_care_case)
 
             # Fix Shands
             if (hospital_name == 'ShandsGaines'):
@@ -64,7 +75,44 @@ def create_app(test_config=None):
             if len(str(hospital_phone_number)) > 10:
                 phone_number += " ext. " + str(hospital_phone_number)[10:]
 
+            # Update min appd
+            if avg_total_case_f < min_price_appd:
+                min_price_appd = avg_total_case_f
+                min_price_appd_name = hospital_name
+
+            # Update min medicare
+            if avg_care_case_f < min_price_care:
+                min_price_care = avg_care_case_f
+                min_price_care_name = hospital_name
+
+            # Update max appd
+            if avg_total_case_f > max_price_appd:
+                max_price_appd = avg_total_case_f
+                max_price_appd_name = hospital_name
+
+            # Update max medicare
+            if avg_care_case_f > max_price_care:
+                max_price_care = avg_care_case_f
+                max_price_care_name = hospital_name
             
+            print(row)
+            print("print(min_price_appd)")
+            print(min_price_appd)
+            print("min_price_appd_name")
+            print(min_price_appd_name)
+            print("max_price_appd")
+            print(max_price_appd)
+            print("max_price_care")
+            print(max_price_care)
+            print("max_price_care_name")
+            print(max_price_care_name)
+
+            #TODO: CHECK IF VALUE IS ERROR CODE LIKE -2
+
+            avg_total_case = '$' + avg_total_case
+            avg_care_case = '$' + avg_care_case
+
+
 
             table_row = { 'hospital':hospital_name, 'appd':avg_total_case, 'appdcare':avg_care_case, 'city':hospital_city, 'state':hospital_state, 'phone':phone_number }
             table_info.append(table_row)
@@ -73,7 +121,8 @@ def create_app(test_config=None):
         database.commit()
         database.close()
 
-        return render_template('search.html', title='Search', drgCode=drgCode, searchLoc=searchLoc, table_info=table_info)
+        return render_template('search.html', title='Search', drgCode=drgCode, searchLoc=searchLoc, table_info=table_info, min_appd=min_price_appd_name,
+                                max_appd=max_price_appd_name, min_care=min_price_care_name, max_care=max_price_care_name)
 
     @app.route('/drg-list')
     def drgList():
