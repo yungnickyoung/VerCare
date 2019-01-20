@@ -55,6 +55,10 @@ def create_app(test_config=None):
             hospital_city = hospital_info[3]
             hospital_state = hospital_info[4]
 
+            # Fix Shands
+            if (hospital_name == 'ShandsGaines'):
+                hospital_name = "Shands Hospital"
+
             # Make the phone number pretty
             phone_number = '(' + str(hospital_phone_number)[0:3] + ') ' + str(hospital_phone_number)[3:6] + '-' + str(hospital_phone_number)[6:10]
             if len(str(hospital_phone_number)) > 10:
