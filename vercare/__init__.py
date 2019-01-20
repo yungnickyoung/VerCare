@@ -1,5 +1,5 @@
 import os
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect
 
 def create_app(test_config=None):
     # create and configure the app
@@ -23,6 +23,10 @@ def create_app(test_config=None):
         pass
 
     # a simple page that says hello
+    @app.route('/')
+    def baseSite():
+        return redirect('/home')
+
     @app.route('/home')
     def home():
         return render_template('home.html', title='Home')
