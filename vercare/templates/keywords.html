@@ -11,7 +11,7 @@
                 <tbody>
                     {% for item in table_info %}
                     <tr>
-                        <th scope="row"><a href="/search" class="btn btn-info" role="button">{{ item.drg }}</a></th>
+                        <th scope="row"><a id = "drgButton1" class="btn btn-info" role="button" href='search?drgCode={{ item.drg }}&searchLoc=Gainesville, FL'>{{ item.drg }}</a></th>
                         <td style="word-wrap: break-word;min-width: 160px;max-width: 160px;">{{ item.desc }}</td>
                     </tr>
                     {% endfor %}
