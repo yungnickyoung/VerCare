@@ -2,6 +2,9 @@ from __future__ import print_function
 import os
 import sys
 from flask import Flask, render_template, request, redirect
+from . import db
+import sqlite3
+
 
 def create_app(test_config=None):
     # create and configure the app
@@ -10,14 +13,6 @@ def create_app(test_config=None):
         SECRET_KEY='dev',
         DATABASE=os.path.join(app.instance_path, 'vercare.sqlite'),
     )
-
-    if test_config is None:
-        # load the instance config, if it exists, when not testing
-        app.config.from_pyfile('config.py', silent=True)
-    else:
-        # load the test config if passed in
-        app.config.from_mapping(test_config)
-
     # ensure the instance folder exists
     try:
         os.makedirs(app.instance_path)
@@ -35,7 +30,31 @@ def create_app(test_config=None):
 
     @app.route('/search')
     def search():
-        return render_template('search.html', title='Search', drgCode='123', searchLoc='Gainesville, FL')
+        drgCode = request.args.get('drgCode')
+        searchLoc = request.args.get('searchLoc')
+
+        database = db.get_db()
+        c = database.cursor()
+
+        c.execute('SELECT * FROM drg_list WHERE DRG=?', (drgCode,))
+
+        list_of_rows = c.fetchall()
+
+        table_info = []
+
+        for row in list_of_rows:
+            hospital_name = row[1]
+            avg_total_case = row[2]
+            avg_care_case = row[3]
+
+            table_row = { 'hospital':hospital_name, 'appd':avg_total_case, 'appdcare':avg_care_case }
+            table_info.append(table_row)
+
+
+        database.commit()
+        database.close()
+
+        return render_template('search.html', title='Search', drgCode=drgCode, searchLoc=searchLoc, table_info=table_info)
 
     @app.route('/drg-list')
     def drgList():
@@ -79,7 +98,13 @@ def create_app(test_config=None):
                         results_list.append(result)
         return render_template('keywords.html', table_info=results_list)
 
-    from . import db
-    db.init_app(app)
+    database = db.get_db()
+    c = database.cursor()
+    # with open('static/verCareDB.db.sql') as f:
+    #     c.executescript(f.read().decode('utf8'))
+
+    database.commit()
+    
+    database.close()
 
     return app
