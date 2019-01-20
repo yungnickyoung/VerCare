@@ -43,12 +43,12 @@ def create_app(test_config=None):
             # results_list.append(a_result)
 
             # Search table of DRG/Descriptions for descriptions containing keywords
-            with open("static/drg_desc.csv") as f:
+            with open('static/drg_desc_final.txt') as f:
                 f.readline()
                 for line in f:
                     contains_keywords = True
 
-                    line = line.split(',')
+                    line = line.split(';')
                     drg = line[0]
                     desc = line[1].capitalize()
 
