@@ -46,8 +46,23 @@ def create_app(test_config=None):
             hospital_name = row[1]
             avg_total_case = row[2]
             avg_care_case = row[3]
+            hospital_id = row[4]
 
-            table_row = { 'hospital':hospital_name, 'appd':avg_total_case, 'appdcare':avg_care_case }
+            c.execute('SELECT * FROM hospital_list WHERE hospital_id=?', (hospital_id,))
+            hospital_info = c.fetchone()
+            print(hospital_info)
+            hospital_phone_number = hospital_info[2]
+            hospital_city = hospital_info[3]
+            hospital_state = hospital_info[4]
+
+            # Make the phone number pretty
+            phone_number = '(' + str(hospital_phone_number)[0:3] + ') ' + str(hospital_phone_number)[3:6] + '-' + str(hospital_phone_number)[6:10]
+            if len(str(hospital_phone_number)) > 10:
+                phone_number += " ext. " + str(hospital_phone_number)[10:]
+
+            
+
+            table_row = { 'hospital':hospital_name, 'appd':avg_total_case, 'appdcare':avg_care_case, 'city':hospital_city, 'state':hospital_state, 'phone':phone_number }
             table_info.append(table_row)
 
 
