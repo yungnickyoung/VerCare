@@ -145,7 +145,7 @@
 <script>
             function checkKeyDown(e) {
                 if (e.key == ' ') {
-                    var text = document.getElementById('keywordForm').value
+                    var text = document.getElementById('keywordForm').value.toUpperCase()
 
                     $.ajax({
                         url: "/keywords",

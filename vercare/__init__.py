@@ -50,14 +50,14 @@ def create_app(test_config=None):
 
                     line = line.split(',')
                     drg = line[0]
-                    desc = line[1]
+                    desc = line[1].capitalize()
 
                     for word in keywords:
                         if word not in line[1]:
                             contains_keywords = False
 
                     if contains_keywords:
-                        result = {'drg':line[0], 'desc':line[1] }
+                        result = {'drg':drg, 'desc':desc }
                         results_list.append(result)
 
         return render_template('keywords.html', table_info=results_list)
