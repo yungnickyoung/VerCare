@@ -1,6 +1,7 @@
 # VerCare
 Aggregates and compares medical procedure prices for nearby hospitals in order to help you find the perfect price.
-VerCare won 3rd place for SwampHacks 2019.
+
+SwampHacks 2019 3rd place winner!
 
 ## Inspiration
 A law was enacted on January 1, 2019 requiring all hospitals to be transparent with pricing for all goods provided by each hospital. In an attempt to circumvent this law, hospitals made their pricing data as convoluted as possible, using extremely technical terms to describe items in their sets of data. Our goal was to make our healthcare truly transparent, and stop predatory pricing. All too often we hear stories of students who are forced to go to a hospital that refuses to provide quotes for their ailments and then bill absurd amounts of money that only pile onto debts. Our system was meant for the masses in mind. You don’t need to know medical terms, you don’t need to know how to scour the internet to find a CSV file with 5000 items (yes, 5000 items was the **average** length CSV file with data we found) then figure out the translation of your illness. All you have to do is go to VerCare, type in your possible diagnosis, and click search. We search all the hospitals around you, and we give you the true price in a format you can understand.
